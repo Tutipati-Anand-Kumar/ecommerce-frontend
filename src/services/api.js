@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: '/api' }); 
+const API = axios.create({
+  baseURL:
+    import.meta.env.MODE === 'development'
+      ? 'http://localhost:5000/api'
+      : 'https://render.com/docs/web-services#port-binding/api',
+});
 
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
