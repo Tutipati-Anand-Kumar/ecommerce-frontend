@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL:
     import.meta.env.MODE === 'development'
       ? 'http://localhost:5000/api'
-      : 'https://render.com/docs/web-services#port-binding/api',
+      : 'https://ecommerce-backend-ybtb.onrender.com/api',
 });
 
 API.interceptors.request.use((req) => {
