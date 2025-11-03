@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL:
     import.meta.env.MODE === 'development'
       ? 'http://localhost:5000/api'
-      : 'https://ecommerce-backend-ybtb.onrender.com/api',
+      : 'https://ecommerce-backend-1-26u7.onrender.com//api',
 });
 
 API.interceptors.request.use((req) => {
