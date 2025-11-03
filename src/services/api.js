@@ -3,6 +3,10 @@ import axios from 'axios';
 // ✅ Use environment variable (from .env) for backend URL
 const BACKEND_URL = 'https://ecommerce-backend-1-26u7.onrender.com';
 
+console.log('Backend URL:', import.meta.env.VITE_BACKEND_URL);
+console.log(BACKEND_URL);
+
+
 // ✅ Create axios instance with baseURL dynamically
 const API = axios.create({
   baseURL: `${BACKEND_URL}/api`,
