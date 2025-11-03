@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL?.trim() ||
-  'https://ecommerce-backend-1-26u7.onrender.com';
+  import.meta.env.MODE === 'development'
+    ? 'http://localhost:3000' 
+    : (import.meta.env.VITE_BACKEND_URL?.trim() || 'https://ecommerce-backend-1-26u7.onrender.com');
 
 console.log('Backend URL (final):', BACKEND_URL);
 
