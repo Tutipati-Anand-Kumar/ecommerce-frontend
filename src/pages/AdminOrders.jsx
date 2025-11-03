@@ -45,7 +45,7 @@ const AdminOrders = () => {
     <div className={`min-h-screen py-8 px-4 sm:px-6 lg:px-8 ${
       darkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50'
     }`}>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mt-15">
         {/* Header */}
         <div className="mb-8">
           {/* Back Button */}

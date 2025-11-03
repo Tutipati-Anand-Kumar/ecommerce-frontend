@@ -44,7 +44,7 @@ const AdminAddProduct = () => {
     >
       {/* Card Container */}
       <div
-        className={`w-full max-w-4xl p-6 sm:p-10 rounded-2xl shadow-2xl border backdrop-blur-xl transition-all duration-300 ${
+        className={`w-full max-w-4xl p-6 sm:p-10 rounded-2xl shadow-2xl border backdrop-blur-xl transition-all duration-300 mt-15 ${
           darkMode
             ? 'bg-black/60 border-yellow-600/40 shadow-[0_0_25px_rgba(255,215,0,0.2)]'
             : 'bg-white/60 border-gray-200'

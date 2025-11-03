@@ -271,7 +271,7 @@ const Navbar = () => {
       )}
 
       {/* Spacer */}
-      <div className={`pt-15 ${darkMode ? "bg-[#0a192f]" : "bg-white"}`}></div>
+      <div className={`${darkMode ? "bg-[#0a192f]" : "bg-white"}`}></div>
     </>
   );
 };

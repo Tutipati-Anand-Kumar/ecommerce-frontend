@@ -72,7 +72,7 @@ const AdminProducts = () => {
 
   return (
     <div className={`min-h-screen p-6 ${darkMode?"bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white":"bg-white text-amber-50"}`}>
-      <div className="max-w-7xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/20">
+      <div className="max-w-7xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/20 mt-15">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">

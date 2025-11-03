@@ -47,7 +47,7 @@ const Order = () => {
   if (orders.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className={`px-8 py-6 rounded-2xl backdrop-blur-xl border text-center ${
+        <div className={`px-8 py-6 rounded-2xl backdrop-blur-xl border text-center mt-15 ${
           darkMode 
             ? 'bg-slate-800/40 border-slate-700/50' 
             : 'bg-white/40 border-white/50'
@@ -71,7 +71,7 @@ const Order = () => {
   }
 
   return (
-    <div className={`min-h-screen py-8 px-4 sm:px-6 lg:px-8 ${
+    <div className={`min-h-screen py-8 px-4 sm:px-6 lg:px-8 pt-18 ${
       darkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50'
     }`}>
       <div className="max-w-7xl mx-auto">

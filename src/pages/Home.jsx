@@ -67,7 +67,7 @@ const Home = () => {
 
   return (
     <div
-      className={`sm:p-2 md:p-4 min-h-screen transition-colors duration-500 ${
+      className={`sm:p-2 md:p-4 mt-15 min-h-screen transition-colors duration-500 ${
         darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-800"
       }`}
     >

@@ -80,7 +80,7 @@ const AdminDashboard = () => {
       }`}></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto mt-10">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
           <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 ${
