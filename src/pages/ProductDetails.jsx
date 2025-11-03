@@ -5,6 +5,7 @@ import { FaStar, FaRegStar, FaStarHalfAlt, FaHeart, FaArrowLeft } from "react-ic
 import { toast } from "react-hot-toast";
 import { useCart } from "../context/CartContext"; 
 import { useTheme } from "../context/ThemeContext";
+import { getBackendUrl } from "../services/api";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`${getBackendUrl()}/api/products/${id}`);
         setProduct(data.product);
       } catch (err) {
         console.error(err);
