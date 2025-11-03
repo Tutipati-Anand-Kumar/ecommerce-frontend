@@ -115,28 +115,28 @@ const ProductCard = ({ product, onAddToCart, onViewProduct }) => {
           </p>
         </div>
 
-        <div className="flex items-center justify-between mt-2">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between mt-2 min-w-0">
+          <div className="flex items-center gap-1 min-w-0">
             {renderStars(product.rating)}
             <span className={`text-sm ml-1 ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
               ({product.rating?.toFixed(2) || "0.00"})
             </span>
           </div>
 
-          <div className="text-right">
+          <div className="text-right min-w-[100px] shrink-0">
             {product.discountPercentage > 0 ? (
-              <>
+             <div className="md:flex md:flex-col lg:flex lg:flex-row items-end gap-1"> 
                 <span
                   className={`line-through text-sm ${
                     darkMode ? "text-gray-500" : "text-gray-400"
-                  }`}
+                  } truncate sm:max-w-full`} 
                 >
                   ${product.price.toFixed(2)}
                 </span>
-                <span className="text-base font-bold text-green-500 ml-1">
+                <span className="text-base font-bold text-green-500">
                   ${discountedPrice}
                 </span>
-              </>
+            </div>
             ) : (
               <span className="text-base font-bold text-green-500">
                 ${discountedPrice}
@@ -145,7 +145,7 @@ const ProductCard = ({ product, onAddToCart, onViewProduct }) => {
           </div>
         </div>
 
-        <p className="text-xs text-green-400 text-right">
+        <p className="text-xs text-green-400 text-right mt-1">
           {product.discountPercentage > 0 && `(${product.discountPercentage}% off)`}
         </p>
 

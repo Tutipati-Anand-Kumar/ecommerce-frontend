@@ -148,7 +148,7 @@ if (cart.length === 0)
           return (
             <div
               key={item.productId._id}
-              className={`flex flex-col sm:flex-row justify-between items-center sm:items-center p-4 rounded-2xl gap-4 shadow-lg border backdrop-blur-md transition-all duration-300 ${
+              className={`grid grid-cols-1 sm:grid-cols-[1fr_auto_100px] gap-4 p-4 rounded-2xl shadow-lg border backdrop-blur-md transition-all duration-100 ${
   darkMode
     ? "bg-gray-800/60 border-gray-700/40 text-white"
     : "bg-white/70 border-gray-200/50 text-gray-800"
