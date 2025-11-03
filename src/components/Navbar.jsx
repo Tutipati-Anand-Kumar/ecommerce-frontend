@@ -165,26 +165,102 @@ const Navbar = () => {
             title="Toggle Theme"
           >
             {darkMode ? <FaSun className='text-xl text-yellow-400'/> : <FaRegMoon className='text-xl'/>}
-            <p className='font-normal'>{darkMode ? "Dark" : "Light"}</p>
+            <p className={`${darkMode?"text-white":"text-black"}`}>{darkMode ? "Dark" : "Light"}</p>
           </button>
         </div>
 
         {/* Mobile Menu */}
         <div className="lg:hidden flex items-center gap-3">
-          <button
+           <button
             onClick={toggleTheme}
-            className="text-2xl text-gray-700 dark:text-cyan-200"
+            className="flex justify-center items-center flex-col text-gray-700 dark:text-cyan-200 hover:text-yellow-400 transition"
+            title="Toggle Theme"
           >
-            {darkMode ? <FaSun /> : <FaRegMoon />}
+            {darkMode ? <FaSun className='text-xl text-yellow-400'/> : <FaRegMoon className='text-xl'/>}
+            <p className={`${darkMode?"text-white":"text-black"}`}>{darkMode ? "Dark" : "Light"}</p>
           </button>
+
           <button
-            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => {
+              setMobileMenuOpen(!isMobileMenuOpen)
+            }}
             className="text-2xl text-gray-700 dark:text-cyan-200"
           >
-            <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon icon={faBars} className={`${darkMode?"text-white":""}`}/>
           </button>
         </div>
       </header>
+
+      {/* ✅ Mobile Dropdown Menu */}
+{isMobileMenuOpen && (
+  <div
+    className={`lg:hidden flex flex-col items-center space-y-4 py-4 transition-all duration-500 ease-in-out
+      ${darkMode
+        ? "bg-[rgba(10,20,35,0.95)] text-gray-200 shadow-[0_5px_20px_rgba(0,255,255,0.15)]"
+        : "bg-white text-gray-800 shadow-md"
+      }`}
+  >
+    <Link to="/" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+      <FontAwesomeIcon icon={faHouse} className="text-lg text-red-400" />
+      <span>Home</span>
+    </Link>
+
+    {!user && (
+      <>
+        <Link to="/login" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+          <FontAwesomeIcon icon={faRightToBracket} className="text-lg text-blue-400" />
+          <span>Login</span>
+        </Link>
+        <Link to="/register" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+          <FontAwesomeIcon icon={faAddressCard} className="text-lg text-yellow-400" />
+          <span>Register</span>
+        </Link>
+      </>
+    )}
+
+    {user && (
+      <>
+        <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className={`${mobileLinkClasses} relative`}>
+          <FontAwesomeIcon icon={faCartShopping} className="text-lg text-pink-400" />
+          {cartItemCount > 0 && (
+            <div className="absolute -top-2 -right-3 bg-black dark:bg-white text-white dark:text-black rounded-full w-5 h-5 flex justify-center items-center text-xs font-bold">
+              {cartItemCount}
+            </div>
+          )}
+          <span>Cart</span>
+        </Link>
+
+        <Link to="/orders" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+          <FontAwesomeIcon icon={faBagShopping} className="text-lg text-blue-400" />
+          <span>Orders</span>
+        </Link>
+
+        <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+          <FontAwesomeIcon icon={faUser} className="text-lg text-indigo-400" />
+          <span>Profile</span>
+        </Link>
+
+        {user.isAdmin && (
+          <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className={mobileLinkClasses}>
+            <FontAwesomeIcon icon={faPlus} className="text-lg text-green-400" />
+            <span>Admin</span>
+          </Link>
+        )}
+
+        <button
+          onClick={() => {
+            setShowLogoutPopup(true);
+            setMobileMenuOpen(false);
+          }}
+          className={`${mobileLinkClasses} text-red-500 dark:text-red-400`}
+        >
+          <FontAwesomeIcon icon={faRightToBracket} className="text-lg" />
+          <span>Logout</span>
+        </button>
+      </>
+    )}
+  </div>
+)}
 
       {/* Logout Popup */}
       {showLogoutPopup && (
