@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getBackendUrl } from '../../services/api';
 
 export const ordersApiSlice = createApi({
   reducerPath: 'ordersApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: '/api',
+    baseUrl: `${getBackendUrl()}/api`,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       if (token) {

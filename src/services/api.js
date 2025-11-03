@@ -1,15 +1,17 @@
 import axios from 'axios';
 
-const BACKEND_URL =
-  import.meta.env.MODE === 'development'
+// api.js (add this export)
+export const getBackendUrl = () => {
+  return import.meta.env.MODE === 'development'
     ? 'http://localhost:3000'
     : (import.meta.env.VITE_BACKEND_URL?.trim() || 'https://ecommerce-backend-1-26u7.onrender.com');
+};
 
-console.log('Backend URL (final):', BACKEND_URL);
+console.log('Backend URL (final):', getBackendUrl());
 
 // ✅ Create axios instance with baseURL dynamically
 const API = axios.create({
-  baseURL: `${BACKEND_URL}/api`,
+  baseURL: `${getBackendUrl()}/api`,
 });
 
 // ✅ Interceptor for adding token to headers
