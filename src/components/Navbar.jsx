@@ -65,7 +65,7 @@ const Navbar = () => {
         {/* ✅ Logo + Text */}
         <Link to="/" className="flex items-center flex-shrink-0 mr-3">
           <img
-            src="/public/image.png"
+            src="/image.png"
             alt="FamilyKart Logo"
             className={`h-9 sm:h-10 md:h-12 w-auto object-contain transition duration-300
               ${darkMode ? "brightness-200 contrast-150 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" : ""}`}
