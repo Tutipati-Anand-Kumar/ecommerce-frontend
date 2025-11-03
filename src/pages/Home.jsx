@@ -60,19 +60,19 @@ const Home = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-22 w-22 border-4 border-blue-500 border-t-transparent"></div>
       </div>
     );
   }
 
   return (
     <div
-      className={`p-4 sm:p-6 md:p-8 min-h-screen transition-colors duration-500 ${
+      className={`sm:p-2 md:p-4 min-h-screen transition-colors duration-500 ${
         darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-800"
       }`}
     >
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 p-4 rounded-2xl shadow-md border transition-colors duration-500 ${
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 p-3 rounded-xl shadow border transition-colors duration-500 ${
           darkMode
             ? "bg-gray-800 border-gray-700"
             : "bg-white border-gray-200"
@@ -81,14 +81,14 @@ const Home = () => {
       >
         <div>
           <label
-            className={`block font-medium mb-1 ${
+            className={`block font-medium text-sm mb-1 ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
             Category
           </label>
           <select
-            className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 transition-colors duration-300 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-blue-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-blue-500"
@@ -107,7 +107,7 @@ const Home = () => {
 
         <div>
           <label
-            className={`block font-medium mb-1 ${
+            className={`block text-sm font-medium mb-1 ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
@@ -116,7 +116,7 @@ const Home = () => {
           <input
             type="number"
             placeholder="Enter max price"
-            className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 transition-colors duration-300 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-green-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-green-500"
@@ -128,14 +128,14 @@ const Home = () => {
 
         <div>
           <label
-            className={`block font-medium mb-1 ${
+            className={`block font-medium text-sm mb-1 ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
             Minimum Rating
           </label>
           <select
-            className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 transition-colors duration-300 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-yellow-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-yellow-500"
@@ -153,12 +153,12 @@ const Home = () => {
         <div className="flex items-end">
           <button
             onClick={handleClearFilters}
-            className={`w-full p-2 rounded-lg font-medium transition-all shadow-sm ${
+            className={`w-full px-2 py-2 text-sm font-medium rounded-md transition-colors duration-100 ${
               isCleared
                 ? "bg-green-500 text-white"
                 : darkMode
                 ? "bg-gray-700 hover:bg-gray-600 text-gray-100"
-                : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                : "bg-cyan-400 hover:bg-cyan-500 text-gray-800"
             }`}
           >
             Clear Filters

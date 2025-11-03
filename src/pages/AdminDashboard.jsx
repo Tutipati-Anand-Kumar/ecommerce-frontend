@@ -62,7 +62,7 @@ const AdminDashboard = () => {
 
   return (
     <div 
-      className="min-h-screen relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen relative overflow-hidden py-8 px-4 sm:px-6 lg:px-8"
       style={{
         backgroundImage: darkMode 
           ? 'url(https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80)'

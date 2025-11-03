@@ -4,9 +4,14 @@ import { useGetMyOrdersQuery } from '../features/orders/ordersApiSlice';
 import { useTheme } from '../context/ThemeContext';
 
 const Order = () => {
-  const { data: ordersData, isLoading, isError } = useGetMyOrdersQuery();
+  const { data: ordersData, isLoading, isError, refetch } = useGetMyOrdersQuery(undefined, {
+  refetchOnMountOrArgChange: true,
+  
+});
+
   const orders = ordersData?.orders || [];
   const {darkMode} = useTheme();
+  
 
   if (isLoading) {
     return (

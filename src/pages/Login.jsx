@@ -52,7 +52,7 @@ const Login = () => {
       toast.success("User login successful");
       navigate('/');
     } else {
-      toast.error(result.message || "Check your login credentials");
+      toast.error("Check your login credentials" || result.message);
     }
   };
 
