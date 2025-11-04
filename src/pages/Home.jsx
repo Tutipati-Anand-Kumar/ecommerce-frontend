@@ -72,7 +72,7 @@ const Home = () => {
       }`}
     >
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 p-3 rounded-xl shadow border transition-colors duration-500 ${
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-3 mb-4 p-3 rounded-xl shadow border transition-colors duration-500 max-[445px]:grid-cols-3 ${
           darkMode
             ? "bg-gray-800 border-gray-700"
             : "bg-white border-gray-200"
@@ -81,14 +81,14 @@ const Home = () => {
       >
         <div>
           <label
-            className={`block font-medium text-sm mb-1 ${
+            className={`block font-medium text-sm mb-1 max-[445px]:text-[12px] ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
             Category
           </label>
           <select
-            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 max-[445px]:text-[12px] max-[445px]:px-1 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-blue-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-blue-500"
@@ -107,7 +107,7 @@ const Home = () => {
 
         <div>
           <label
-            className={`block text-sm font-medium mb-1 ${
+            className={`block text-sm font-medium mb-1 max-[445px]:text-[12px] ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
@@ -116,7 +116,7 @@ const Home = () => {
           <input
             type="number"
             placeholder="Enter max price"
-            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 max-[445px]:text-[12px] max-[445px]:px-1 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-green-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-green-500"
@@ -128,14 +128,14 @@ const Home = () => {
 
         <div>
           <label
-            className={`block font-medium text-sm mb-1 ${
+            className={`block font-medium text-sm mb-1 max-[445px]:text-[12px] ${
               darkMode ? "text-gray-200" : "text-gray-700"
             }`}
           >
             Minimum Rating
           </label>
           <select
-            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 ${
+            className={`w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 transition-colors duration-100 max-[445px]:text-[12px] max-[445px]:px-1 ${
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-yellow-400"
                 : "bg-white border-gray-300 text-gray-800 focus:ring-yellow-500"
@@ -153,7 +153,7 @@ const Home = () => {
         <div className="flex items-end">
           <button
             onClick={handleClearFilters}
-            className={`w-full px-2 py-2 text-sm font-medium rounded-md transition-colors duration-100 ${
+            className={`w-full px-2 py-2 text-sm font-medium rounded-md transition-colors duration-100 max-[445px]:text-[12px] max-[445px]:p-0 ${
               isCleared
                 ? "bg-green-500 text-white"
                 : darkMode

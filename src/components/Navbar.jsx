@@ -56,18 +56,18 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-lg 
+        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-lg
           ${darkMode
             ? "bg-[rgba(10,20,35,0.9)] text-gray-200 shadow-[0_2px_25px_rgba(0,255,255,0.15)]"
             : "bg-[rgba(255,255,255,0.9)] text-gray-900 shadow-md"}
           flex justify-between items-center py-2.5 px-3 sm:px-6 md:px-8 transition-all duration-500 ease-in-out`}
       >
         {/* ✅ Logo + Text */}
-        <Link to="/" className="flex items-center flex-shrink-0 mr-3">
+        <Link to="/" className="flex items-center shrink-0 mr-3 max-[445px]:mr-0">
           <img
             src="/image.png"
             alt="FamilyKart Logo"
-            className={`h-9 sm:h-10 md:h-12 w-auto object-contain transition duration-300
+            className={`h-9 sm:h-10 md:h-12 w-auto object-contain transition duration-300 max-[445px]:w-20
               ${darkMode ? "brightness-200 contrast-150 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" : ""}`}
           />
         </Link>
@@ -75,11 +75,11 @@ const Navbar = () => {
         {/* Search Bar */}
         <form
           onSubmit={handleSearch}
-          className="relative flex flex-grow items-center max-w-2xl mx-3"
+          className="relative flex grow items-center max-w-2xl mx-3 max-[445px]:mx-1.5 max-[445px]:h-[45px]"
         >
           <button
             type="submit"
-            className={`absolute left-3 text-lg transition
+            className={`absolute right-3 text-lg transition
               ${darkMode ? "text-cyan-300 hover:text-yellow-300" : "text-gray-500 hover:text-blue-600"}`}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -87,7 +87,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search products..."
-            className={`w-full py-2.5 pl-9 pr-3 rounded-full border focus:outline-none focus:ring-2
+            className={`w-full py-2.5 pr-9 pl-3 rounded-full border focus:outline-none focus:ring-2 max-[445px]:h-[45px]
               ${darkMode
                 ? "border-gray-600 bg-[rgba(255,255,255,0.08)] text-gray-100 placeholder-gray-400 focus:ring-cyan-400"
                 : "border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:ring-blue-400"}
@@ -161,7 +161,7 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="flex justify-center items-center flex-col text-gray-700 dark:text-cyan-200 hover:text-yellow-400 transition"
+            className="flex justify-center items-center flex-col text-gray-700 dark:text-cyan-200 hover:text-yellow-400 transition" 
             title="Toggle Theme"
           >
             {darkMode ? <FaSun className='text-xl text-yellow-400'/> : <FaRegMoon className='text-xl'/>}
@@ -173,7 +173,7 @@ const Navbar = () => {
         <div className="lg:hidden flex items-center gap-3">
            <button
             onClick={toggleTheme}
-            className="flex justify-center items-center flex-col text-gray-700 dark:text-cyan-200 hover:text-yellow-400 transition"
+            className="flex justify-center items-center flex-col text-gray-700 dark:text-cyan-200 hover:text-yellow-400 transition max-[445px]:text-[12px]"
             title="Toggle Theme"
           >
             {darkMode ? <FaSun className='text-xl text-yellow-400'/> : <FaRegMoon className='text-xl'/>}
@@ -184,7 +184,7 @@ const Navbar = () => {
             onClick={() => {
               setMobileMenuOpen(!isMobileMenuOpen)
             }}
-            className="text-2xl text-gray-700 dark:text-cyan-200"
+            className="text-2xl text-gray-700 dark:text-cyan-200 max-[445px]:text-[22px]"
           >
             <FontAwesomeIcon icon={faBars} className={`${darkMode?"text-white":""}`}/>
           </button>

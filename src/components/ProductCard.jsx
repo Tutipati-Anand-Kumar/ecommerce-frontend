@@ -83,7 +83,7 @@ const ProductCard = ({ product, onAddToCart, onViewProduct }) => {
       </div>
 
       {/* Info */}
-      <div className="flex flex-col flex-grow px-4 py-3">
+      <div className="flex flex-col grow px-4 py-3">
         <h2
           className={`text-lg font-semibold mb-1 line-clamp-1 ${
             darkMode ? "text-gray-100" : "text-gray-800"
