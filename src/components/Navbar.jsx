@@ -56,7 +56,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-lg
+        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-lg max-[445px]:h-[55px] max-[650px]:h-[55px]
           ${darkMode
             ? "bg-[rgba(10,20,35,0.9)] text-gray-200 shadow-[0_2px_25px_rgba(0,255,255,0.15)]"
             : "bg-[rgba(255,255,255,0.9)] text-gray-900 shadow-md"}
@@ -87,7 +87,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search products..."
-            className={`w-full py-2.5 pr-9 pl-3 rounded-full border focus:outline-none focus:ring-2 max-[445px]:h-[45px]
+            className={`w-full py-2.5 pr-9 pl-3 rounded-full border focus:outline-none focus:ring-2 max-[445px]:h-[42px] max-[650px]:h-[39px]
               ${darkMode
                 ? "border-gray-600 bg-[rgba(255,255,255,0.08)] text-gray-100 placeholder-gray-400 focus:ring-cyan-400"
                 : "border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:ring-blue-400"}

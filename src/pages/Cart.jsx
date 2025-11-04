@@ -136,7 +136,7 @@ if (cart.length === 0)
 
 
   return (
-   <div className={`max-w-4xl mx-auto mt-8 px-4 ${darkMode ? 'bg-black min-h-screen' : 'bg-white min-h-screen'}`}>
+   <div className={`max-w-4xl mx-auto pt-18 px-4 ${darkMode ? 'bg-black min-h-screen' : 'bg-white min-h-screen'}`}>
       <h2 className={`text-3xl font-bold mb-6 ${darkMode?"text-white":"text-black"}`}>Your Cart</h2>
 
       <div className={`space-y-4 mb-6`}>

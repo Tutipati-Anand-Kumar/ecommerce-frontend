@@ -72,7 +72,7 @@ const Home = () => {
       }`}
     >
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-3 mb-4 p-3 rounded-xl shadow border transition-colors duration-500 max-[445px]:grid-cols-3 ${
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-4 gap-3 mb-4 p-3 rounded-xl shadow border transition-colors duration-500 max-[640px]:grid-cols-3 max-[445px]:ml-2 max-[445px]:mr-2 max-[650px]:mx-2 ${
           darkMode
             ? "bg-gray-800 border-gray-700"
             : "bg-white border-gray-200"
@@ -191,7 +191,7 @@ const Home = () => {
       )}
 
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 max-[445px]:ml-2 max-[445px]:mr-2 max-[650px]:grid-cols-1 min-[580px]:grid-cols-2 max-[650px]:mx-2"
         data-aos="fade-up"
       >
         {products.map((product) => (
