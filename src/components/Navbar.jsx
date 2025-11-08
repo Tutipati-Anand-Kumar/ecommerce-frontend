@@ -194,7 +194,7 @@ const Navbar = () => {
       {/* ✅ Mobile Dropdown Menu */}
 {isMobileMenuOpen && (
   <div
-    className={`lg:hidden flex flex-col items-center bg-black absolute top-17.5 right-0.5 z-50 transition-all duration-500 ease-in-out w-[150px] opacity-90 rounded-b-xl
+    className={`lg:hidden flex flex-col items-center bg-black absolute top-17.5 right-0.5 z-50 transition-all duration-500 ease-in-out w-[130px] opacity-90 rounded-b-xl
       ${darkMode
         ? "bg-slate-900 text-gray-200 shadow-[0_5px_20px_rgba(0,255,255,0.15)]"
         : "bg-white text-gray-800 shadow-md"

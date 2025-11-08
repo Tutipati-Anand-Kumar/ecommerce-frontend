@@ -74,8 +74,8 @@ const Order = () => {
     <div className={`min-h-screen py-8 px-4 sm:px-6 lg:px-8 pt-18 ${
       darkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50'
     }`}>
-      <div className="max-w-7xl mx-auto">
-        <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-center ${
+      <div className="max-w-8xl mx-auto">
+        <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 text-center ${
           darkMode ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400' : 'text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600'
         }`}>
           Your Orders

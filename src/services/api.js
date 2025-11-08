@@ -70,7 +70,8 @@ export const orderAPI = {
 // 🔹 ADMIN ENDPOINTS
 // =====================
 export const adminAPI = {
-  getProducts: (params) => API.get('/admin/products', { params }),
+  // getProducts: (params) => API.get('/admin/products', { params }),
+  getProducts: () => API.get('/products?all=true'),
   getOrders: () => API.get('/admin/orders'),
   getCarts: () => API.get('/admin/carts'),
   addProduct: (data) => API.post('/products', data),
