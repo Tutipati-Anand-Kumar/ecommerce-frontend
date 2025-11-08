@@ -72,7 +72,11 @@ const AdminProducts = () => {
 
   return (
     <div className={`min-h-screen p-6 max-[500px]:p-3 ${darkMode?"bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white":"bg-white text-amber-50"}`}>
-      <div className="max-w-8xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-white/20 mt-15 max-[400px]:p-2">
+     <div
+  className={`mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 mt-15 
+  p-6 max-[800px]:p-4 max-[500px]:p-2 
+  w-full max-w-[1400px] overflow-hidden`}
+>
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 max-[400px]:mb-3">
@@ -97,8 +101,8 @@ const AdminProducts = () => {
         </div>
 
         {/* Product Table */}
-        <div className="overflow-x-auto rounded-xl border border-white/20">
-          <table className="min-w-full text-sm text-gray-200">
+        <div className="overflow-x-auto rounded-xl border border-white/20 w-full max-w-full">
+          <table className="w-full table-auto text-sm text-gray-200">
             <thead className={`bg-white/10 ${darkMode?"text-white":"text-black"} uppercase text-xs`}>
               <tr>
                 <th className="px-4 py-3 text-left w-[8%]">ID</th>
@@ -106,7 +110,7 @@ const AdminProducts = () => {
                 <th className="px-4 py-3 text-left w-[10%]">Price</th>
                 <th className="px-4 py-3 text-left w-[10%]">Stock</th>
                 <th className="px-4 py-3 text-left w-[10%]">Discount</th>
-                <th className="px-4 py-3 text-center w-[20%]">Actions</th>
+                <th className="px-4 py-3 text-center w-[10%]">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -123,7 +127,7 @@ const AdminProducts = () => {
                   <td className="px-4 py-3 text-center flex flex-wrap gap-2 justify-center">
                     <button
                       onClick={() => handleEdit(p)}
-                      className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-700 hover:from-yellow-600 hover:to-yellow-800 transition-all duration-200 max-[754px]:px-5"
+                      className="py-1.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-700 hover:from-yellow-600 hover:to-yellow-800 transition-all duration-200 px-5"
                     >
                       Edit
                     </button>
