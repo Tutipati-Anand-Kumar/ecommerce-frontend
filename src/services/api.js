@@ -9,19 +9,16 @@ export const getBackendUrl = () => {
 
 console.log('Backend URL (final):', getBackendUrl());
 
-// ✅ Create axios instance with baseURL dynamically
 const API = axios.create({
   baseURL: `${getBackendUrl()}/api`,
 });
 
-// ✅ Interceptor for adding token to headers
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem('token');
   if (token) req.headers.Authorization = `Bearer ${token}`;
   return req;
 });
 
-// ✅ Interceptor for handling unauthorized responses
 API.interceptors.response.use(
   (res) => res,
   (err) => {

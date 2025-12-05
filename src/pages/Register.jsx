@@ -2,26 +2,33 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { MdDriveFileRenameOutline, MdEmail } from "react-icons/md";
-import { FaPhone, FaMapMarkerAlt, FaUser, FaEye, FaEyeSlash, FaLock, FaLockOpen } from "react-icons/fa"; // Note: FaPhone, FaMapMarkerAlt, FaUser from 'react-icons/fa'; Md* from 'react-icons/md'
+import { FaPhone, FaMapMarkerAlt, FaUser, FaEye, FaEyeSlash, FaLock, FaLockOpen } from "react-icons/fa";
 import { validatePassword } from 'val-pass';
 import { toast } from "react-hot-toast";
 import { useTheme } from "../context/ThemeContext";
 
+const ADMIN_SECRET = "anand@1";
+
 const Register = () => {
-  const [formData, setFormData] = useState({ 
-    name: '', 
-    email: '', 
-    password: '', 
-    repassword: '', // Added for confirmation
-    phone: '', 
-    address: '', 
-    role: '' 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    repassword: "",
+    phone: "",
+    address: "",
+    role: "",
   });
-  const [adminCode, setAdminCode] = useState('');
-  const [showPassword, setShowPassword] = useState(true); // Toggle for main password
-  const [showAdminCode, setShowAdminCode] = useState(true); // Toggle for admin code (if shown)
-  const [passerror, setPassError] = useState([]); // Password validation errors
-  const [passMatchError, setPassMatchError] = useState(false); // Password match error
+
+  const [adminCode, setAdminCode] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
+  const [showAdminCode, setShowAdminCode] = useState(true);
+  const [passerror, setPassError] = useState([]);
+  const [passMatchError, setPassMatchError] = useState(false);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [secretVisible, setSecretVisible] = useState(false);
+
   const { register } = useAuth();
   const navigate = useNavigate();
   const { darkMode } = useTheme();
@@ -30,221 +37,301 @@ const Register = () => {
     let { name, value } = e.target;
 
     if (name === 'password') {
-      if (value.trim() === "") {
-        setPassError([]);
-      } else {
-        const result = validatePassword(value, 8).getAllValidationErrorMessage();
-        setPassError(result);
-      }
-    }
+         if (value.trim() === "") {
+           setPassError([]);
+         } else {
+           const result = validatePassword(value, 8).getAllValidationErrorMessage();
+           setPassError(result);
+         }
+       }
 
     if (name === "repassword") {
-      if (formData.password && value === formData.password) {
-        setPassMatchError(false);
-      } else {
-        setPassMatchError(true);
-      }
+      setPassMatchError(value !== formData.password);
     }
 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleShowAdminCode = () => {
-    setShowAdminCode(!showAdminCode);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (passerror.length > 0 && passerror !== "No Error Detected") {
+         toast.error("Please fix password errors");
+         return;
+   }
+
     if (formData.password !== formData.repassword) {
       setPassMatchError(true);
-      toast.error("Passwords don't match ❌");
+      toast.error("Passwords don't match");
       return;
     }
 
-    if (passerror.length > 0 && passerror !== "No Error Detected") {
-      toast.error("Please fix password errors ❌");
+    if (formData.role === "admin" && adminCode !== ADMIN_SECRET) {
+      toast.error("Admin secret key is not matching");
       return;
     }
 
     const submissionData = { ...formData };
-    if (formData.role === 'admin') {
-      submissionData.adminCode = adminCode;
-    }
-    delete submissionData.repassword; 
+    if (formData.role === "admin") submissionData.adminCode = adminCode;
+    delete submissionData.repassword;
 
     const result = await register(submissionData);
 
     if (result.success) {
       toast.success("User registered successfully");
-      navigate('/');
+      navigate("/");
     } else {
       toast.error(result.message || "Registration failed");
     }
   };
 
+  const inputClasses = darkMode
+    ? "bg-[#101828] text-white placeholder-white/60"
+    : "bg-white text-black placeholder-gray-400";
+
+  const borderClasses = darkMode ? "border-gray-700" : "border-gray-200";
+
   return (
-    <div className={`min-h-screen w-full flex items-center justify-center pt-20 pb-20 ${darkMode?"bg-black":"bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-400"}`}>
+    <div className={`min-h-screen w-full flex items-center justify-center pt-20 pb-20 ${
+      darkMode ? "bg-black" : "bg-white"
+    }`}>
       <form
-        className="flex flex-col w-11/12 max-w-md sm:max-w-3xl bg-white/90 backdrop-blur-sm p-6 sm:p-10 rounded-2xl sm:rounded-3xl gap-y-6 transition-all duration-300"
+        className={`flex flex-col w-11/12 max-w-md sm:max-w-3xl ${
+          darkMode ? "bg-[#0B1220] text-white" 
+                   : "bg-white text-black shadow-xl shadow-gray-300/60"
+        } backdrop-blur-sm p-6 sm:p-10 rounded-3xl gap-y-6 transition-all`}
         onSubmit={handleSubmit}
       >
-        <div className='flex justify-center items-center'>
-          <h1 className='font-bold text-3xl sm:text-4xl text-pink-500'>Register</h1>
+        <div className="flex justify-center">
+          <h1 className="font-bold text-3xl sm:text-4xl text-pink-500">Register</h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-          <div className="space-y-4 sm:space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          {/* LEFT */}
+          <div className="space-y-5">
+
             {/* Name */}
-            <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-blue-400 focus-within:shadow-lg focus-within:shadow-blue-200/50 flex items-center transition-all duration-300 bg-white'>
+            <div className={`border-2 ${borderClasses} rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
               <input
                 type="text"
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                placeholder='Enter your full name*'
-                name='name'
-                onChange={handleChange}
+                name="name"
+                placeholder="Enter your full name*"
                 value={formData.name}
+                onChange={handleChange}
+                className="w-full bg-transparent outline-none px-3"
                 required
               />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] text-blue-500 mr-2'><MdDriveFileRenameOutline /></span>
+              <MdDriveFileRenameOutline className="text-blue-400 text-xl" />
             </div>
 
             {/* Email */}
-            <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-green-500 focus-within:shadow-lg focus-within:shadow-green-200/50 flex items-center transition-all duration-300 bg-white'>
+            <div className={`border-2 ${borderClasses} rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
               <input
                 type="email"
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                placeholder='Enter your email*'
-                name='email'
-                onChange={handleChange}
+                name="email"
+                placeholder="Enter your email*"
                 value={formData.email}
+                onChange={handleChange}
+                className="w-full bg-transparent outline-none px-3"
                 required
               />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] text-green-500 mr-2'><MdEmail /></span>
+              <MdEmail className="text-green-400 text-xl" />
             </div>
 
-            {/* Password */}
-            <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-yellow-500 focus-within:shadow-lg focus-within:shadow-yellow-200/50 flex items-center transition-all duration-300 bg-white'>
-              <input
-                type={`${showPassword ? "password" : "text"}`}
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                placeholder='Enter your password*'
-                name='password'
-                onChange={handleChange}
-                value={formData.password}
-                required
-              />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] cursor-pointer text-yellow-500 mr-2' onClick={handleShowPassword}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-            {passerror.length > 0 && passerror !== "No Error Detected" && (
-              <div className='flex flex-col gap-1 text-red-600 text-xs sm:text-sm px-2'>
-                {Array.isArray(passerror)
-                  ? passerror.map((err, i) => <p key={i}>• {err}</p>)
-                  : <p>{passerror}</p>}
-              </div>
-            )}
+            {/* Password + Validation */}
+            <div className="flex flex-col gap-1">
 
-            {/* Confirm Password */}
-            <div className={`border-2 rounded-full h-[45px] sm:h-[50px] flex items-center transition-all duration-300 bg-white
-              ${passMatchError ? "border-red-500 shadow-lg shadow-red-200/50" : "border-gray-200"}
-              focus-within:border-pink-500 focus-within:shadow-lg focus-within:shadow-pink-200/50`}>
-              <input
-                type="password"
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                placeholder='Confirm your password*'
-                name="repassword"
-                onChange={handleChange}
-                value={formData.repassword}
-                required
-              />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] mr-2'>
-                {formData.password && formData.repassword && !passMatchError ? (
-                  <FaLockOpen className="text-green-600" />
-                ) : (
-                  <FaLock className={`${passMatchError ? "text-red-600" : "text-pink-500"}`} />
-                )}
-              </span>
-            </div>
-            {passMatchError && (
-              <div className="text-red-600 text-xs sm:text-sm text-center font-medium">Passwords do not match ❌</div>
-            )}
-          </div>
-
-          <div className="space-y-4 sm:space-y-5">
-            {/* Role */}
-            <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-purple-500 focus-within:shadow-lg focus-within:shadow-purple-200/50 flex items-center transition-all duration-300 bg-white'>
-              <select
-                name="role"
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base appearance-none'
-                value={formData.role}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>Select role *</option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] text-purple-500 mr-2'><FaUser /></span>
-            </div>
-
-            {/* Admin Code (Conditional) */}
-            {formData.role === 'admin' && (
-              <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-red-500 focus-within:shadow-lg focus-within:shadow-red-200/50 flex items-center transition-all duration-300 bg-white'>
+              <div className={`border-2 ${borderClasses} rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
                 <input
-                  type={`${showAdminCode ? "password" : "text"}`}
-                  className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                  placeholder='Enter secret code to register as admin*'
-                  value={adminCode}
-                  onChange={(e) => setAdminCode(e.target.value)}
+                  type={showPassword ? "password" : "text"}
+                  name="password"
+                  placeholder="Enter your password*"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full bg-transparent outline-none px-3"
                   required
                 />
-                <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] cursor-pointer text-red-500 mr-2' onClick={handleShowAdminCode}>
-                  {showAdminCode ? <FaEyeSlash /> : <FaEye />}
+                <span onClick={() => setShowPassword(!showPassword)} className="cursor-pointer">
+                  {showPassword ? (
+                    <FaEyeSlash className="text-yellow-400 text-xl" />
+                  ) : (
+                    <FaEye className="text-yellow-400 text-xl" />
+                  )}
+                </span>
+              </div>
+
+              {/* Password validation messages */}
+              {passerror.length > 0 && passerror !== "No Error Detected" && (
+                <div className='flex flex-col gap-1 text-red-600 text-xs sm:text-sm px-2'>
+                  {Array.isArray(passerror)
+                    ? passerror.map((err, i) => <p key={i}>• {err}</p>)
+                    : <p>{passerror}</p>}
+                </div>
+              )}
+            </div>
+
+            {/* Confirm password */}
+            <div className={`border-2 ${
+                passMatchError ? "border-red-500" : borderClasses
+              } rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
+              <input
+                type="password"
+                name="repassword"
+                placeholder="Confirm your password*"
+                value={formData.repassword}
+                onChange={handleChange}
+                className="w-full bg-transparent outline-none px-3"
+                required
+              />
+
+              {passMatchError ? (
+                <FaLock className="text-red-500 text-xl" />
+              ) : (
+                formData.repassword && formData.password && (
+                  <FaLockOpen className="text-green-500 text-xl" />
+                )
+              )}
+            </div>
+
+            {passMatchError && (
+              <p className="text-red-500 text-xs text-center">Passwords do not match ❌</p>
+            )}
+
+          </div>
+
+          {/* RIGHT */}
+          <div className="space-y-5">
+
+            {/* Custom Role Dropdown */}
+            <div className="relative w-full">
+              <div
+                className={`border-2 ${borderClasses} rounded-full h-[50px] px-5 flex items-center justify-between cursor-pointer ${inputClasses}`}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <span>{formData.role || "Select role *"}</span>
+                <FaUser className="text-purple-400 text-xl" />
+              </div>
+
+              {dropdownOpen && (
+                <div
+                  className={`absolute left-0 mt-2 w-full rounded-xl border shadow-lg ${
+                    darkMode ? "bg-[#1b2334] border-gray-700 text-white" : "bg-white border-gray-300"
+                  }`}
+                >
+                  <p
+                    className="px-4 py-2 cursor-pointer hover:bg-blue-200/30"
+                    onClick={() => {
+                      setFormData({ ...formData, role: "user" });
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    User
+                  </p>
+                  <p
+                    className="px-4 py-2 cursor-pointer hover:bg-blue-200/30"
+                    onClick={() => {
+                      setFormData({ ...formData, role: "admin" });
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    Admin
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Admin Secret Code */}
+            {formData.role === "admin" && (
+              <div className={`border-2 ${borderClasses} rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
+                <input
+                  type={showAdminCode ? "password" : "text"}
+                  placeholder="Enter secret code"
+                  value={adminCode}
+                  onChange={(e) => setAdminCode(e.target.value)}
+                  className="w-full bg-transparent outline-none px-3"
+                />
+
+                <span onClick={() => setShowAdminCode(!showAdminCode)} className="cursor-pointer">
+                  {showAdminCode ? (
+                    <FaEyeSlash className="text-red-400 text-xl" />
+                  ) : (
+                    <FaEye className="text-red-400 text-xl" />
+                  )}
                 </span>
               </div>
             )}
 
-            {/* Phone */}
-            <div className='border-2 border-gray-200 rounded-full h-[45px] sm:h-[50px] focus-within:border-blue-400 focus-within:shadow-lg focus-within:shadow-blue-200/50 flex items-center transition-all duration-300 bg-white'>
+            {/* Phone Number */}
+            <div className={`border-2 ${borderClasses} rounded-full h-[50px] px-3 flex items-center ${inputClasses}`}>
               <input
-                type="tel"
-                className='border-0 outline-0 h-full w-full px-5 rounded-full bg-transparent text-sm sm:text-base'
-                placeholder='Enter your phone'
-                name='phone'
-                onChange={handleChange}
+                type="number"
+                placeholder="Enter your phone"
+                name="phone"
                 value={formData.phone}
+                onWheel={(e) => e.target.blur()}
+                onChange={(e) => {
+                  if (e.target.value.length <= 10) {
+                    setFormData({ ...formData, phone: e.target.value });
+                  }
+                }}
+                className="w-full bg-transparent outline-none px-3"
               />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] text-blue-500 mr-2'><FaPhone /></span>
+              <FaPhone className="text-blue-400 text-xl" />
             </div>
 
             {/* Address */}
-            <div className='border-2 border-gray-200 rounded-lg focus-within:border-green-500 focus-within:shadow-lg focus-within:shadow-green-200/50 transition-all duration-300 bg-white relative'>
+            <div className={`border-2 ${borderClasses} rounded-xl p-3 relative ${inputClasses}`}>
               <textarea
-                className='border-0 outline-0 w-full px-5 py-3 rounded-lg bg-transparent text-sm sm:text-base resize-none'
-                placeholder='Enter your address'
-                name='address'
-                onChange={handleChange}
-                value={formData.address}
+                placeholder="Enter your address"
+                name="address"
                 rows="3"
-              />
-              <span className='text-xl sm:text-2xl flex items-center justify-center w-[45px] sm:w-[50px] text-green-500 absolute top-2 right-0'><FaMapMarkerAlt /></span> 
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full bg-transparent outline-none resize-none"
+              ></textarea>
+              <FaMapMarkerAlt className="absolute top-3 right-3 text-green-400 text-xl" />
             </div>
+
           </div>
         </div>
 
-        <div className='rounded-full h-[45px] sm:h-[50px] flex items-center justify-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer'>
-          <button type="submit" className='text-white font-bold text-lg sm:text-xl w-full h-full'>Register</button>
-        </div>
+        {/* Register Button */}
+        <button
+          type="submit"
+          className="rounded-full h-[50px] text-white font-bold bg-gradient-to-r from-orange-500 to-red-500 hover:brightness-110 shadow-lg"
+        >
+          Register
+        </button>
 
-        <div className='flex justify-around text-sm sm:text-base'>
-          <h1 className='font-bold'>Have an account?</h1>
-          <Link className='text-cyan-500 hover:cursor-pointer font-semibold' to="/login">Login</Link>
+        {/* Bottom */}
+        <div className="flex justify-between px-3 text-sm">
+          <div className="flex items-center gap-2">
+            {formData.role === "admin" && (
+              <button
+                type="button"
+                onClick={() => setSecretVisible(!secretVisible)}
+                className={`h-7 w-7 rounded-full flex items-center justify-center cursor-pointer ${
+                  darkMode ? "bg-white/10 text-white" : "bg-gray-200 text-black"
+                }`}
+              >
+                🔒
+              </button>
+            )}
+
+            {secretVisible && formData.role === "admin" && (
+              <span className={darkMode ? "text-white/80" : "text-gray-700"}>
+                {ADMIN_SECRET}
+              </span>
+            )}
+          </div>
+
+          <div>
+            <span className="font-bold">Have an account?</span>{" "}
+            <Link className="text-cyan-500 font-semibold" to="/login">
+              Login
+            </Link>
+          </div>
         </div>
       </form>
     </div>
